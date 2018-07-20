@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Etch-a-sketch</title>
+	<meta charset = utf-8>
+	<link href ='main.css' rel='stylesheet'>
+	<link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">
+</head>
+<body>
+	<div class = 'title'>
+		<h1>Etch-a-Sketch</h1>
+	</div>
+	<div class = 'mainArea'>
+		<div class = 'container'>
+			<div class = 'drawingGrid' id='grid'></div>
+	</div>
+	</div>
+	<div class='buttonWrap'>
+		<div class='bottomButtons'>
+			<button id='mainButton' class='button'>Start - Colour</button>
+			<button id='blackNWhite' class='button'>Start - B&W</button>
+			<button id='resetButton' class='button'>Reset</button>
+		</div>
+	</div>
+</body>
+
+<script>
+	
+	//Global constants
+	const buttonColor = document.querySelector('#mainButton');
+	const buttonBW = document.querySelector('#blackNWhite');
+	const grid = document.querySelector('#grid');
+	const reset = document.querySelector('#resetButton');
+	
+
+	//Color button functionality
+	buttonColor.addEventListener('click', () => {
+	
+	let size = prompt('How many squares wide would you like the grid to be?\nEnter a number between 1 and 250:');
+	if (size > 250) {
+		alert("Grid size must be 250 or lower, dummy. Try again.");
+	} else {
+	let pixels = (500/size);
+		
+		for (i=0; i < (size*size); i++){
+			const square = document.createElement('div');
+			square.classList.add('squares')
+			square.style.height = pixels + 'px';
+			square.style.width = pixels + 'px';
+			square.addEventListener('mouseover', randomColor);
+			grid.appendChild(square);
+		}
+}});
+
+	//Black button functionality
+	buttonBW.addEventListener('click', () => {
+	
+	let size = prompt('How many squares wide would you like the grid to be?\nEnter a number between 1 and 250:');
+	if (size > 250) {
+		alert("Grid size must be 250 or lower, dummy. Try again.");
+	} else {
+	let pixels = (500/size);
+		
+		for (i=0; i < (size*size); i++){
+			const square = document.createElement('div');
+			square.classList.add('squaresBlack')
+			square.style.height = pixels + 'px';
+			square.style.width = pixels + 'px';
+			square.addEventListener('mouseover', addBlack);
+			grid.appendChild(square);
+		}
+}});
+
+
+	//Functions
+	//Random color generator function
+	function randomColor () {
+		let x = Math.floor(Math.random()*1000);
+		if (x < 100) {
+			x += 100;
+		}
+		let y = '#' + x;
+		this.style.backgroundColor = y;
+	};
+
+
+	//Increasing opacity function
+	function addBlack () {
+			
+		let currentOpacity = +this.style.opacity;
+		if (currentOpacity < 1) currentOpacity += 0.1;
+		this.style.opacity = currentOpacity;
+};
+
+
+	//Reset page button
+	reset.addEventListener('click', ()=> {
+		window.location.reload();
+	});
+	
+
+</script>
+
+</html>
+
+
+
+
+
+
+
+	
